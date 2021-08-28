@@ -26,7 +26,7 @@ The ez way! You can download a pre-built binary from [releases page](https://git
 Very quick & clean!
 
 ```bash
-▶ go install github.com/pwnesia/dnstake/cmd/dnstake
+▶ go install github.com/pwnesia/dnstake/cmd/dnstake@latest
 ```
 
 #### — or
