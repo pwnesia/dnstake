@@ -69,6 +69,10 @@ func exec(hostname string) (bool, fingerprint.DNS, error) {
 		return vuln, fgp, fmt.Errorf("%s (%s)", errors.ErrPattern, err.Error())
 	}
 
+	if rec == "" {
+		return false, fgp, fmt.Errorf("%s", errors.ErrFinger)
+	}
+
 	if _, m := find(fgp.Status, 0); m {
 		return vuln, DNS, fmt.Errorf("%s", errors.ErrNotVuln)
 	}

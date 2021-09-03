@@ -10,4 +10,5 @@ const (
 	ErrUnknown  = "Something error"
 	ErrNotVuln  = "target not known to be vulnerable"
 	ErrVerify   = "cannot verifying target hostname"
+	ErrFinger   = "DNS unknown when fingerprinting"
 )
