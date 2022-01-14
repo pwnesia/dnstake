@@ -6,5 +6,5 @@ type Options struct {
 	Concurrency int
 	Silent      bool
 	List        []string
-	Output	    string
+	Output      string
 }
