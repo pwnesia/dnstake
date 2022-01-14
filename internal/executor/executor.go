@@ -3,11 +3,11 @@ package executor
 import (
 	"bufio"
 	"fmt"
-	"github.com/projectdiscovery/gologger"
 	"os"
 	"sync"
 
 	"github.com/logrusorgru/aurora"
+	"github.com/projectdiscovery/gologger"
 	"github.com/projectdiscovery/retryabledns"
 	"github.com/pwnesia/dnstake/internal/errors"
 	"github.com/pwnesia/dnstake/internal/option"
@@ -45,7 +45,7 @@ func New(opt *option.Options, hostname string) {
 
 	vuln, DNS, err := exec(hostname)
 	if err != nil {
-		out += fmt.Sprintf("[%s] %s: %s", aurora.Red("ERR"), hostname, err.Error())
+		gologger.Error().Msgf("%s: %s", hostname, err.Error())
 	}
 
 	if vuln {
