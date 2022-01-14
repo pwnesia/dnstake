@@ -20,6 +20,9 @@ func Parse() *Options {
 	flag.BoolVar(&opt.Silent, "s", false, "")
 	flag.BoolVar(&opt.Silent, "silent", false, "")
 
+	flag.StringVar(&opt.Output, "o", "", "")
+	flag.StringVar(&opt.Output, "output", "", "")
+
 	flag.Usage = func() {
 		showBanner()
 		h := []string{

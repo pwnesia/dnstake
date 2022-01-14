@@ -1,10 +1,13 @@
 package executor
 
 import (
+	"bufio"
 	"fmt"
+	"github.com/projectdiscovery/gologger"
+	"os"
+	"sync"
 
 	"github.com/logrusorgru/aurora"
-	"github.com/projectdiscovery/gologger"
 	"github.com/projectdiscovery/retryabledns"
 	"github.com/pwnesia/dnstake/internal/errors"
 	"github.com/pwnesia/dnstake/internal/option"
@@ -12,13 +15,37 @@ import (
 	"github.com/pwnesia/dnstake/pkg/fingerprint"
 )
 
+var mu sync.Mutex
+
+// WriteToFile writes output data into specified file.
+func WriteToFile(data, outputFile string) {
+
+	mu.Lock()
+	defer mu.Unlock()
+
+	file, err := os.OpenFile(outputFile, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
+	if err != nil {
+		gologger.Error().Msg(err.Error())
+	}
+
+	wrt := bufio.NewWriter(file)
+
+	_, err = wrt.WriteString(data + "\n")
+	if err != nil {
+		gologger.Error().Msg(err.Error())
+	}
+
+	wrt.Flush()
+	file.Close()
+}
+
 // New to execute target hostname
 func New(opt *option.Options, hostname string) {
 	var out = ""
 
 	vuln, DNS, err := exec(hostname)
 	if err != nil {
-		gologger.Error().Msgf("%s: %s", hostname, err.Error())
+		out += fmt.Sprintf("[%s] %s: %s", aurora.Red("ERR"), hostname, err.Error())
 	}
 
 	if vuln {
@@ -43,8 +70,14 @@ func New(opt *option.Options, hostname string) {
 			}
 		}
 
-		fmt.Println(out)
 	}
+
+	if opt.Output != "" {
+		WriteToFile(out, opt.Output)
+	}
+
+	fmt.Println(out)
+
 }
 
 func exec(hostname string) (bool, fingerprint.DNS, error) {
