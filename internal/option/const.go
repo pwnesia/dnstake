@@ -18,7 +18,7 @@ const (
   -t, --target <HOST/FILE>    Define single target host/list to check
   -c, --concurrent <i>        Set the concurrency level (default: 25)
   -s, --silent                Suppress errors and/or clean output
-  -o, --output                Define path where you want to store the tool's output
+  -o, --output <FILE>         Save vulnerable hosts to FILE
   -h, --help                  Display its help`
   examples = `
   dnstake -t (sub.)domain.tld
