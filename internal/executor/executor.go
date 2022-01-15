@@ -4,7 +4,6 @@ import (
 	"bufio"
 	"fmt"
 	"os"
-	"sync"
 
 	"github.com/logrusorgru/aurora"
 	"github.com/projectdiscovery/gologger"
@@ -15,11 +14,8 @@ import (
 	"github.com/pwnesia/dnstake/pkg/fingerprint"
 )
 
-var mu sync.Mutex
-
 // WriteToFile writes output data into specified file.
 func WriteToFile(data, outputFile string) {
-
 	mu.Lock()
 	defer mu.Unlock()
 
