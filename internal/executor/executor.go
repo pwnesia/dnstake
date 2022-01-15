@@ -14,27 +14,6 @@ import (
 	"github.com/pwnesia/dnstake/pkg/fingerprint"
 )
 
-// WriteToFile writes output data into specified file.
-func WriteToFile(data, outputFile string) {
-	mu.Lock()
-	defer mu.Unlock()
-
-	file, err := os.OpenFile(outputFile, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
-	if err != nil {
-		gologger.Error().Msg(err.Error())
-	}
-
-	wrt := bufio.NewWriter(file)
-
-	_, err = wrt.WriteString(data + "\n")
-	if err != nil {
-		gologger.Error().Msg(err.Error())
-	}
-
-	wrt.Flush()
-	file.Close()
-}
-
 // New to execute target hostname
 func New(opt *option.Options, hostname string) {
 	var out = ""
@@ -69,11 +48,31 @@ func New(opt *option.Options, hostname string) {
 	}
 
 	if opt.Output != "" {
-		WriteToFile(out, opt.Output)
+		writeToFile(out, opt.Output)
 	}
 
 	fmt.Println(out)
 
+}
+
+func writeToFile(data, output string) {
+	mu.Lock()
+	defer mu.Unlock()
+
+	file, err := os.OpenFile(output, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
+	if err != nil {
+		gologger.Error().Msg(err.Error())
+	}
+
+	wrt := bufio.NewWriter(file)
+
+	_, err = wrt.WriteString(data + "\n")
+	if err != nil {
+		gologger.Error().Msg(err.Error())
+	}
+
+	wrt.Flush()
+	file.Close()
 }
 
 func exec(hostname string) (bool, fingerprint.DNS, error) {
