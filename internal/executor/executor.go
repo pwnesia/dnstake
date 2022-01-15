@@ -59,7 +59,7 @@ func writeToFile(data, output string) {
 
 	file, err := os.OpenFile(output, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
 	if err != nil {
-		gologger.Error().Msg(err.Error())
+		gologger.Fatal().Msg(err.Error())
 	}
 
 	wrt := bufio.NewWriter(file)
