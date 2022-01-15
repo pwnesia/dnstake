@@ -45,14 +45,12 @@ func New(opt *option.Options, hostname string) {
 			}
 		}
 
-	}
-
-	if opt.Output != "" {
-		writeToFile(out, opt.Output)
+		if opt.Output != "" {
+			writeToFile(hostname, opt.Output)
+		}
 	}
 
 	fmt.Println(out)
-
 }
 
 func writeToFile(data, output string) {
