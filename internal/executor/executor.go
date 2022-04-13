@@ -50,7 +50,9 @@ func New(opt *option.Options, hostname string) {
 		}
 	}
 
-	fmt.Println(out)
+        if out != "" {
+            fmt.Println(out)
+        }
 }
 
 func writeToFile(data, output string) {
