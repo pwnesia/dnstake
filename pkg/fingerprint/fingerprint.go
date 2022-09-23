@@ -60,11 +60,6 @@ func Get() []DNS {
 			Pattern:  `^ns[12]\.(nameresolve|dotster)\.com$`,
 		},
 		{
-			Provider: "Dotster",
-			Status:   []int{1, 3},
-			Pattern:  `^ns[12]\.(nameresolve|dotster)\.com$`,
-		},
-		{
 			Provider: "EasyDNS",
 			Status:   []int{1},
 			Pattern:  `^dns(?:4\.easydns\.info|1\.easydns\.com|2\.easydns\.net|3\.easydns\.org)$`,
@@ -78,6 +73,11 @@ func Get() []DNS {
 			Provider: "Google Cloud",
 			Status:   []int{1},
 			Pattern:  `^ns\-cloud\-[\w]+\.go{2}gledomains\.com$`,
+		},
+		{
+			Provider: "Hostinger",
+			Status:   []int{0},
+			Pattern:  `^ns[12]\.hostinger\.com$`,
 		},
 		{
 			Provider: "Hover",
@@ -108,6 +108,11 @@ func Get() []DNS {
 			Provider: "Name.com",
 			Status:   []int{1, 3},
 			Pattern:  `^ns[1-4][\w]+?\.name\.com$`,
+		},
+		{
+			Provider: "namecheap",
+			Status:   []int{1, 3},
+			Pattern:  `^.*\.(?:registrar\-servers|namecheaphosting)\.com$`,
 		},
 		{
 			Provider: "Network Solutions",
